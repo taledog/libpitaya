@@ -31,6 +31,7 @@ Below we show how to build for all major platforms.
 make setup-android-mac
 make setup-adnroid-linux
 # Build
+make build-android
 make build-android-arm64-v8a
 make build-android-x86_64
 make build-android-x86
