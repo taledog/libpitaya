@@ -10,6 +10,11 @@ endif()
 
 project(pitaya LANGUAGES C)
 
+if(ANDROID)
+    #设置生成的so动态库最后输出的路径
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${ANDROID_ABI})
+endif()   
+
 #
 # Options passed as parameters
 #
@@ -75,7 +80,7 @@ elseif(WIN32)
     set_target_properties(pitaya PROPERTIES OUTPUT_NAME "pitaya-windows")
 else()
     set_target_properties(pitaya PROPERTIES OUTPUT_NAME "pitaya-linux")
-endif()
+endif() 
 
 if(UNIX AND NOT APPLE)
     set_target_properties(pitaya PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -110,8 +115,8 @@ if(WIN32)
 else()
     if(ANDROID)
         target_include_directories(pitaya PRIVATE ${PITAYA_OPENSSL_DIR}/android/include)
-        set(SSL_LOCATION ${PITAYA_OPENSSL_DIR}/android/lib/armeabi-v7a/libssl.a)
-        set(CRYPTO_LOCATION ${PITAYA_OPENSSL_DIR}/android/lib/armeabi-v7a/libcrypto.a)
+        set(SSL_LOCATION ${PITAYA_OPENSSL_DIR}/android/lib/${ANDROID_ABI}/libssl.a)
+        set(CRYPTO_LOCATION ${PITAYA_OPENSSL_DIR}/android/lib/${ANDROID_ABI}/libcrypto.a)
     elseif(IOS)
         target_include_directories(pitaya PRIVATE ${PITAYA_OPENSSL_DIR}/ios/include)
         set(SSL_LOCATION ${PITAYA_OPENSSL_DIR}/ios/lib/libssl.a)
