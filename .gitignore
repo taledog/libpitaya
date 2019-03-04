@@ -29,3 +29,5 @@ temp/
 unity/PitayaExample/.idea
 unity/PitayaExample/.idea/*
 unity/PitayaExample/Assets/InitTestScene*
+
+.DS_Store
