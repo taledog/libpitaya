@@ -12,7 +12,7 @@ Create the Bridging Header file, example PitayaClientSwift-Bridging-Header.h the
 ``` c
 #import "pitaya.h"
 #import "pc_pitaya_i.h"
-
+```
 
 ### Initialize the pitaya lib
 
