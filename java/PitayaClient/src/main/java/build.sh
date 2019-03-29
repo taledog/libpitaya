@@ -16,8 +16,10 @@ ANDROID_NDK_COMPILER="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/b
 #javac -cp ../../../lib/javacpp.jar dog/tale/pitaya/PitayaConfig.java
 #java -jar ../../../lib/javacpp.jar dog.tale.pitaya.PitayaConfig
 #javac -cp .:../../../lib/javacpp.jar dog/tale/pitaya/Pitaya.java
-##java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya
-#java -jar ../../../lib/javacpp.jar -nocompile dog.tale.pitaya.Pitaya
+#java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya
+##java -jar ../../../lib/javacpp.jar -nocompile dog.tale.pitaya.Pitaya
+##java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya -properties windows-x86_64
+##java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya -properties windows-x86_64-mingw
 #rm -rf dog/tale/pitaya/*.class
 
 # for android arm
@@ -35,14 +37,14 @@ java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya -properties android-ar
 rm -rf dog/tale/pitaya/*.class
 
 
-## for android x86
+# for android x86
 #javac -cp ../../../lib/javacpp.jar dog/tale/pitaya/PitayaConfig.java
 #java -jar ../../../lib/javacpp.jar dog.tale.pitaya.PitayaConfig -properties android-x86-clang -Dplatform.root=$ANDROID_NDK_HOME -Dplatform.compiler=$ANDROID_NDK_COMPILER
 #javac -cp .:../../../lib/javacpp.jar dog/tale/pitaya/Pitaya.java
 #java -jar ../../../lib/javacpp.jar dog.tale.pitaya.Pitaya -properties android-x86-clang -Dplatform.root=$ANDROID_NDK_HOME -Dplatform.compiler=$ANDROID_NDK_COMPILER
 #rm -rf dog/tale/pitaya/*.class
-#
-#
+
+
 ## for android x86 64
 #javac -cp ../../../lib/javacpp.jar dog/tale/pitaya/PitayaConfig.java
 #java -jar ../../../lib/javacpp.jar dog.tale.pitaya.PitayaConfig -properties android-x86_64-clang -Dplatform.root=$ANDROID_NDK_HOME -Dplatform.compiler=$ANDROID_NDK_COMPILER

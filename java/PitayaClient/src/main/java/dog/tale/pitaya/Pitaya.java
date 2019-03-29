@@ -12,8 +12,8 @@ public class Pitaya extends dog.tale.pitaya.PitayaConfig {
 // Parsed from pitaya_version.h
 
 public static final int PC_VERSION_MAJOR = 1;
-public static final int PC_VERSION_MINOR = 9;
-public static final int PC_VERSION_REVISION = 5;
+public static final int PC_VERSION_MINOR = 10;
+public static final int PC_VERSION_REVISION = 2;
 public static final String PC_VERSION_SUFFIX = "";
 
 // Parsed from pitaya.h
@@ -34,9 +34,9 @@ public static final String PC_VERSION_SUFFIX = "";
 // #endif
 
 // #ifdef _WIN32
-// #define PC_EXPORT __declspec(dllexport)
+// #  define PC_EXPORT __declspec(dllexport)
 // #else
-// #define PC_EXPORT
+// #  define PC_EXPORT
 // #endif
 
 // #include "pitaya_version.h"
@@ -111,7 +111,7 @@ public static final int PC_LOG_DISABLE = 4;
  * some tunable arguments
  */
 public static final int PC_TRANSPORT_PLUGIN_SLOT_COUNT = 8;
-public static final int PC_PRE_ALLOC_REQUEST_SLOT_COUNT = 4;
+public static final int PC_PRE_ALLOC_REQUEST_SLOT_COUNT = 4; 
 public static final int PC_PRE_ALLOC_NOTIFY_SLOT_COUNT = 4;
 public static final int PC_TIMEOUT_CHECK_INTERVAL = 2;
 public static final int PC_HEARTBEAT_TIMEOUT_FACTOR = 2;
@@ -127,7 +127,7 @@ public static final int PC_TR_NAME_DUMMY = 7;
 /**
  * reconnect max retry
  */
-public static final int PC_ALWAYS_RETRY = -1;
+public static final int PC_ALWAYS_RETRY = -1; 
 
 /**
  * disable timeout
@@ -135,7 +135,7 @@ public static final int PC_ALWAYS_RETRY = -1;
 public static final int PC_WITHOUT_TIMEOUT = -1;
 
 /** enum pc_local_storage_op_t */
-public static final int
+public static final int 
     PC_LOCAL_STORAGE_OP_READ = 0,
     PC_LOCAL_STORAGE_OP_WRITE = 1;
 public static class pc_local_storage_cb_t extends FunctionPointer {
@@ -218,19 +218,9 @@ public static class pc_client_config_t extends Pointer {
     public native Pointer ls_ex_data(); public native pc_client_config_t ls_ex_data(Pointer ls_ex_data);
 
     public native int transport_name(); public native pc_client_config_t transport_name(int transport_name);
-
+    
     public native int disable_compression(); public native pc_client_config_t disable_compression(int disable_compression);
 }
-
-public static final int PC_CLIENT_CONFIG_DEFAULT_CONN_TIMEOUT = 30;
-public static final int PC_CLIENT_CONFIG_DEFAULT_ENABLE_RECONN = 1;
-public static final int PC_CLIENT_CONFIG_DEFAULT_RECONN_MAX_RETRY = PC_ALWAYS_RETRY;
-public static final int PC_CLIENT_CONFIG_DEFAULT_RECONN_DELAY = 2;
-public static final int PC_CLIENT_CONFIG_DEFAULT_RECONN_DELAY_MAX = 30;
-public static final int PC_CLIENT_CONFIG_DEFAULT_RECONN_EXP_BACKOFF = 1;
-public static final int PC_CLIENT_CONFIG_DEFAULT_ENABLE_POLLING = 0;
-public static final int PC_CLIENT_CONFIG_DEFAULT_TRANSPORT_NAME = PC_TR_NAME_UV_TCP;
-public static final int PC_CLIENT_CONFIG_DEFAULT_DISABLE_COMPRESSION = 0;
 
 // #define PC_CLIENT_CONFIG_DEFAULT
 // {
@@ -314,9 +304,9 @@ public static class Pc_realloc_Pointer_long extends FunctionPointer {
     public native Pointer call(Pointer arg0, @Cast("size_t") long arg1);
 }
 @NoException public static native void pc_lib_init(Pc_log_int_BytePointer pc_log,
-                           Pc_alloc_long pc_alloc,
-                           Pc_free_Pointer pc_free,
-                           Pc_realloc_Pointer_long pc_realloc,
+                           Pc_alloc_long pc_alloc, 
+                           Pc_free_Pointer pc_free, 
+                           Pc_realloc_Pointer_long pc_realloc, 
                            @ByVal pc_lib_client_info_t client_info);
 public static class Pc_log_int_String extends FunctionPointer {
     static { Loader.load(); }
@@ -327,11 +317,11 @@ public static class Pc_log_int_String extends FunctionPointer {
     public native void call(int level, String msg);
 }
 @NoException public static native void pc_lib_init(Pc_log_int_String pc_log,
-                           Pc_alloc_long pc_alloc,
-                           Pc_free_Pointer pc_free,
-                           Pc_realloc_Pointer_long pc_realloc,
+                           Pc_alloc_long pc_alloc, 
+                           Pc_free_Pointer pc_free, 
+                           Pc_realloc_Pointer_long pc_realloc, 
                            @ByVal pc_lib_client_info_t client_info);
-
+    
 @NoException public static native void pc_update_client_info(@ByVal pc_lib_client_info_t client_info);
 
 /**
@@ -342,7 +332,7 @@ public static class Pc_log_int_String extends FunctionPointer {
 @NoException public static native int pc_lib_add_pinned_public_key_from_certificate_file(@Cast("const char*") BytePointer ca_path);
 @NoException public static native int pc_lib_add_pinned_public_key_from_certificate_file(String ca_path);
 @NoException public static native void pc_lib_skip_key_pin_check(@Cast("bool") boolean should_skip);
-
+    
 /**
  * Remote all pinned public keys.
  */
@@ -504,10 +494,10 @@ public static class pc_request_error_cb_t extends FunctionPointer {
  * Initiate a request.
  */
 @NoException public static native int pc_string_request_with_timeout(pc_client_t client, @Cast("const char*") BytePointer route,
-                                             @Cast("const char*") BytePointer str, Pointer ex_data, int timeout,
+                                             @Cast("const char*") BytePointer str, Pointer ex_data, int timeout, 
                                              pc_request_success_cb_t success_cb, pc_request_error_cb_t error_cb);
 @NoException public static native int pc_string_request_with_timeout(pc_client_t client, String route,
-                                             String str, Pointer ex_data, int timeout,
+                                             String str, Pointer ex_data, int timeout, 
                                              pc_request_success_cb_t success_cb, pc_request_error_cb_t error_cb);
 
 @NoException public static native int pc_binary_request_with_timeout(pc_client_t client, @Cast("const char*") BytePointer route,
@@ -545,8 +535,8 @@ public static class pc_notify_error_cb_t extends FunctionPointer {
 /**
  * pc_notify_t getters.
  *
- * All the getters should be called in pc_notify_cb_t to access read-only
- * properties of the current pc_notify_t.
+ * All the getters should be called in pc_notify_cb_t to access read-only 
+ * properties of the current pc_notify_t. 
  *
  * User should not hold any references to pc_notify_t.
  */
@@ -571,9 +561,9 @@ public static class pc_notify_error_cb_t extends FunctionPointer {
                                             Pointer ex_data, int timeout, pc_notify_error_cb_t cb);
 @NoException public static native int pc_binary_notify_with_timeout(pc_client_t client, String route, @Cast("uint8_t*") byte[] data, @Cast("int64_t") long len,
                                             Pointer ex_data, int timeout, pc_notify_error_cb_t cb);
-@NoException public static native int pc_string_notify_with_timeout(pc_client_t client, @Cast("const char*") BytePointer route, @Cast("const char*") BytePointer str,
+@NoException public static native int pc_string_notify_with_timeout(pc_client_t client, @Cast("const char*") BytePointer route, @Cast("const char*") BytePointer str, 
                                             Pointer ex_data, int timeout, pc_notify_error_cb_t cb);
-@NoException public static native int pc_string_notify_with_timeout(pc_client_t client, String route, String str,
+@NoException public static native int pc_string_notify_with_timeout(pc_client_t client, String route, String str, 
                                             Pointer ex_data, int timeout, pc_notify_error_cb_t cb);
 
 /**
@@ -603,11 +593,12 @@ public static class pc_notify_error_cb_t extends FunctionPointer {
  * Macro implementation
  */
 // #define pc_lib_version() PC_VERSION_NUM
-// #define pc_lib_version_str() PC_VERSION_STR
+// #define pc_lib_version_str() PC_VERSION_STR 
 
 // #ifdef __cplusplus
 // #endif
 
 // #endif /* PC_PITAYA_H */
+
 
 }

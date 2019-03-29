@@ -10,18 +10,20 @@ import org.bytedeco.javacpp.tools.*;
                     value={""},
                     includepath = {
                             "/Users/arden/data/repository/tale/PitayaClientJava/src/main/cpp/include/",
-                            "/Users/arden/data/source/go/game/libpitaya/src/"
+                            "/Users/arden/data/repository/tale/libpitaya/src"
                     },
                     preloadpath = {
 
                     },
                     linkpath = {
-                            "/Users/arden/data/repository/tale/PitayaClientJava/lib/android/arm64-v8a",
-                            "/Users/arden/data/source/go/game/libpitaya/_builds/android/CMakeFiles/pitaya.dir/src"
+                            //"/Users/arden/data/repository/tale/PitayaClientJava/lib"
+                            //"/Users/arden/data/repository/tale/PitayaClientJava/lib/android/armeabi-v7a"
+                            "/Users/arden/data/repository/tale/PitayaClientJava/lib/android/arm64-v8a"
                     },
                     cinclude = {"pitaya_version.h","pitaya.h"},
                     include = {},
                     library = "jniPitaya",
+                    //link = "pitaya-mac"
                     link = "pitaya-android"
             )
     }

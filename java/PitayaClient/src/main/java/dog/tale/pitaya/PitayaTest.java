@@ -4,8 +4,9 @@ import org.bytedeco.javacpp.*;
 
 public class PitayaTest {
     static {
-        System.load("/Users/arden/data/repository/tale/PitayaClientJava/lib/libpitaya-mac.bundle");
-        //System.loadLibrary("Pitaya");
+        //System.load("/Users/arden/data/repository/tale/PitayaClientJava/lib/libpitaya-mac.bundle");
+        System.loadLibrary("pitaya-mac");
+        System.loadLibrary("jniPitaya");
     }
 
     public static void main(String...args) {
@@ -23,7 +24,7 @@ public class PitayaTest {
             Pitaya.pc_client_config_t config = new Pitaya.pc_client_config_t();
             config.transport_name(Pitaya.PC_TR_NAME_UV_TCP);
             config.enable_reconn(1);
-            config.conn_timeout(30);
+            config.conn_timeout(120);
             config.reconn_max_retry(Pitaya.PC_ALWAYS_RETRY);
             config.reconn_delay(30);
 
@@ -36,7 +37,6 @@ public class PitayaTest {
             Pitaya.pc_client_add_ev_handler(client, new Pitaya.pc_event_cb_t() {
                 @Override
                 public void call(Pitaya.pc_client_t client, int ev_type, Pointer ex_data, BytePointer arg1, BytePointer arg2) {
-                    System.out.println("aaa: " + ev_type);
                     if (ev_type == Pitaya.PC_EV_CONNECTED) {
                         Pitaya.pc_string_request_with_timeout(client, "room.join", null, null, 15, new Pitaya.pc_request_success_cb_t() {
                             @Override
@@ -61,13 +61,56 @@ public class PitayaTest {
             }, null, null);
 
 
+            Pitaya.pc_string_request_with_timeout(client, "room.join", null, null, 15, new Pitaya.pc_request_success_cb_t() {
+                @Override
+                public void call(Pitaya.pc_request_t req, Pitaya.pc_buf_t resp) {
+                    System.out.println("request room.join succesed.");
+                }
+            }, new Pitaya.pc_request_error_cb_t() {
+                @Override
+                public void call(Pitaya.pc_request_t req, Pitaya.pc_error_t error) {
+
+                }
+            });
+
+            String str = "{\"name\":\"arden\", \"content\":\"welcome arden(他乐好棒Arden)\"}";
+            int len = str.length();
+            System.out.println("send message lenth: " + len);
+            Pitaya.pc_string_notify_with_timeout(client, "room.message", str, null, 15, new Pitaya.pc_notify_error_cb_t() {
+                @Override
+                public void call(Pitaya.pc_notify_t req, Pitaya.pc_error_t error) {
+                    System.out.println(error);
+                }
+            });
+
             Pitaya.pc_client_set_push_handler(client, new Pitaya.pc_push_handler_cb_t() {
                 @Override
                 public void call(Pitaya.pc_client_t client, BytePointer route, Pitaya.pc_buf_t payload) {
-                    System.out.println(route.getString());
-                    System.out.println(payload.base().getString());
+                    try {
+                        String theRouter = route.getString();
+                        if ("onMessage".equals(theRouter)) {
+                            System.out.println(theRouter);
+                            byte[] messageBytes = payload.base().getStringBytes();
+                            int len = Long.valueOf(payload.len()).intValue();
+                            System.out.println("payload length: " + len);
+                            if (messageBytes != null) {
+                                System.out.println("received message length: " + messageBytes.length);
+                                byte[] theBytes = java.util.Arrays.copyOf(messageBytes, len);
+                                String message = new String(theBytes);
+                                System.out.println("message:" + message);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
+
+            try {
+                Thread.sleep(5000);
+            } catch (Exception e) {
+
+            }
 
             while (true) {
                 synchronized (lock) {

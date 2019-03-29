@@ -1,0 +1,79 @@
+syntax = "proto3";
+package taleproto;
+
+message Player{
+    int32 UserId=1;
+    string NickName=2;
+    int32 Sex=3;
+    string HeadUrl=4;
+    string Locale=5;//zh-CN 简体中文 zh-TW 繁体中文 en-US 英语
+}
+//app 通过http登录后，立即登录（tcp/ws）
+message LoginGameRequest{
+    Player Player=1;
+    string Ip=2;
+    string Token=3;
+}
+message LoginGameResponse  {
+    int32 Code=1;
+    string Msg=2;//出错时的消息
+    string SessionId=3;
+
+}
+message CreateRoomRequest{
+    int32 Kind=1; //房间类型
+    string RoomTitle=2;
+}
+message CreateRoomResponse{
+    int32 Code=1;
+    string Msg=2;//出错时的消息
+    int32 RoomId=3; //房间创建成功后的房间号
+}
+message JoinRequest{
+    int32 RoomId=1;
+}
+message JoinResponse{
+    int32 Code=1;
+    string Msg=2;//出错时的消息
+    repeated Player Members=3;
+    int32 Owner=4;//房间主人
+}
+
+message QuitRoomRequest{
+    int32 RoomId=1;
+}
+message QuitRoomResponse{
+    int32 Code=1;
+    string Msg=2;//出错时的消息
+}
+message NewMember{//新成员加入房间时发送给其他成员,app 实现onNewMember路由
+    Player Member=1;
+    int32 RoomId=2;
+}
+message QuitMember{ //推出房间的成员,app 实现onQuitMember路由
+   int32 PlayerId=1;
+   int32 RoomId=2;
+}
+message TextMessage{//文本消息,房间成员之间发送的消息,app 实现onTextMessage路由
+  int32 MsgId=1;
+  string Text=2;
+  int32 PlayerId=3;//发送者ID,由服务器赋值
+}
+
+message MessageResponse{
+    int32 Code=1;
+    int32 MsgId=2;
+    string Msg=3;
+}
+message DestroyMessage{ //解散房间
+   int32 RoomId=1;
+   string Reason=2;
+}
+message KickMessage{//将玩家踢出房间
+   int32 RoomId=1;
+   repeated  int32 UserIds=2;
+}
+message TaleResponse{
+    int32 Code=1;
+    string Msg=2;
+}
