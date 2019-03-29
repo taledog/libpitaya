@@ -51,6 +51,11 @@ build-mac:
 	@cmake -H. -B_builds/mac -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_MACOS_BUNDLE=ON
 	@cmake --build _builds/mac
 
+build-mac-xcode:
+	@rm -rf _builds/mac-xcode
+	@cmake -H. -B_builds/mac-xcode -GXcode -DBUILD_MACOS_BUNDLE=ON
+	@cmake --build _builds/mac-xcode --config Release
+
 build-linux:
 	@rm -rf _builds/linux
 	@cmake -H. -B_builds/linux -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
@@ -78,9 +83,8 @@ clean-docker-container:
 
 build-linux-docker: clean-docker-container
 	@docker build -t libpitaya .
-	@docker run --name libpitaya libpitaya:latest
-	@mkdir -p _builds/linux
-	@docker cp `docker ps -aqf "name=libpitaya"`:/app/_builds/linux/libpitaya-linux.so _builds/linux
+	@mkdir -p _builds
+	@docker run -v $(shell pwd):/app/ --name libpitaya libpitaya:latest
 	@$(MAKE) clean-docker-container
 
 .PHONY: build

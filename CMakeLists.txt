@@ -13,7 +13,7 @@ project(pitaya LANGUAGES C)
 if(ANDROID)
     #设置生成的so动态库最后输出的路径
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${ANDROID_ABI})
-endif()   
+endif()
 
 #
 # Options passed as parameters
@@ -80,7 +80,7 @@ elseif(WIN32)
     set_target_properties(pitaya PROPERTIES OUTPUT_NAME "pitaya-windows")
 else()
     set_target_properties(pitaya PROPERTIES OUTPUT_NAME "pitaya-linux")
-endif() 
+endif()
 
 if(UNIX AND NOT APPLE)
     set_target_properties(pitaya PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -165,7 +165,10 @@ target_compile_definitions(pitaya
 
 if(WIN32)
     target_link_libraries(pitaya
-      PRIVATE uv_a)
+      PRIVATE
+        uv_a
+        # NOTE: CRYPT32.LIB is necessary in order to compile with OpenSSL 1.1
+        CRYPT32.LIB)
 elseif(ANDROID)
     find_package(Threads REQUIRED)
     target_link_libraries(pitaya
