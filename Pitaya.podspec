@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = 'TalePitaya'
+  s.name             = 'Pitaya'
   s.version          = '0.0.1'
   s.summary          = 'The pod for the pitaya client'
 
