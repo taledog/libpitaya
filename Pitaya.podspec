@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Pitaya'
-  s.version          = '0.0.1'
+  s.version          = '2.0.1'
   s.summary          = 'The pod for the pitaya client'
 
   s.description      = <<-DESC
