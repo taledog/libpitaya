@@ -125,7 +125,7 @@ void pc_update_client_info(pc_lib_client_info_t client_info) {
     pc_lib_client_version_str = client_info.version ? pc_lib_strdup(client_info.version) : pc_lib_strdup("0.1");
 }
 
-void pc_lib_init(void (*pc_log)(int level, const char* msg), 
+void pc_lib_init(void (*pc_log)(int level, const char* msg, ...), 
                  void* (*pc_alloc)(size_t), void (*pc_free)(void* ), 
                  void* (*pc_realloc)(void*, size_t), 
                  pc_lib_client_info_t client_info) {
