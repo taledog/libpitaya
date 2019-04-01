@@ -5,7 +5,7 @@ platform :ios, '11.0'
 #use_frameworks!
 
 abstract_target 'common' do
-  pod 'Pitaya', path: '/Users/arden/data/source/go/game/libpitaya'
+  pod 'Pitaya', :git => 'https://github.com/taledog/libpitaya.git'
   target 'PitayaClientSwift' do
     pod 'Alamofire', '~> 4.8.1'
   end
