@@ -15,7 +15,7 @@ setup-android-linux:
 
 build-android:
 	@rm -rf _builds/android/armeabi-v7a
-	@cmake -GNinja -H. -B_builds/android -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
+	@cmake -GNinja -H. -B_builds/android/armeabi-v7a -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=armeabi-v7a
 
@@ -23,7 +23,7 @@ build-android:
 
 build-android-arm64-v8a:
 	@rm -rf _builds/android/arm64-v8a
-	@cmake -GNinja -H. -B_builds/android -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
+	@cmake -GNinja -H. -B_builds/android/arm64-v8a -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=arm64-v8a
 
@@ -31,7 +31,7 @@ build-android-arm64-v8a:
 
 build-android-x86:
 	@rm -rf _builds/android/x86
-	@cmake -GNinja -H. -B_builds/android -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
+	@cmake -GNinja -H. -B_builds/android/x86 -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=x86
 
@@ -40,7 +40,7 @@ build-android-x86:
 
 build-android-x86_64:
 	@rm -rf _builds/android/x86_64
-	@cmake -GNinja -H. -B_builds/android -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
+	@cmake -GNinja -H. -B_builds/android/x86_64 -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release \
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=x86_64
 
