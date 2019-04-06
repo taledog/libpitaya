@@ -19,7 +19,7 @@ build-android:
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=armeabi-v7a
 
-	@cmake --build _builds/android
+	@cmake --build _builds/android/armeabi-v7a
 
 build-android-arm64-v8a:
 	@rm -rf _builds/android/arm64-v8a
@@ -27,7 +27,7 @@ build-android-arm64-v8a:
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=arm64-v8a
 
-	@cmake --build _builds/android
+	@cmake --build _builds/android/arm64-v8a
 
 build-android-x86:
 	@rm -rf _builds/android/x86
@@ -35,7 +35,7 @@ build-android-x86:
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=x86
 
-	@cmake --build _builds/android
+	@cmake --build _builds/android/x86
 
 
 build-android-x86_64:
@@ -44,7 +44,7 @@ build-android-x86_64:
 				   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_TOOLCHAIN_FILE} \
 				   -DANDROID_ABI=x86_64
 
-	@cmake --build _builds/android
+	@cmake --build _builds/android/x86_64
 
 build-mac:
 	@rm -rf _builds/mac
