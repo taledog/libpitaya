@@ -1,3 +1,4 @@
+
 ios/PitayaClient/Pods
 Assembly-CSharp.csproj.CoreCompileInputs.cache
 out/
@@ -29,5 +30,6 @@ temp/
 unity/PitayaExample/.idea
 unity/PitayaExample/.idea/*
 unity/PitayaExample/Assets/InitTestScene*
+compile_commands.json
 
 .DS_Store
