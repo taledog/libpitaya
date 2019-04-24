@@ -162,10 +162,20 @@ namespace Pitaya
             _currentLogLevel = logLevel;
         }
 
-        public static void Connect(IntPtr client, string host, int port)
+        public static void Connect(IntPtr client, string host, int port, string handshakeOpts)
         {
             CheckClient(client);
-            NativeConnect(client, host, port, null);
+            var opts = string.IsNullOrEmpty(handshakeOpts) ? null : handshakeOpts;
+
+            switch (NativeConnect(client, host, port, opts))
+            {
+                case PitayaConstants.PcRcOk:
+                    return;
+                case PitayaConstants.PcRcInvalidJson:
+                    throw new Exception("Cannot connect: invalid handshake options json data");
+                default:
+                    throw new Exception("Error when Connect was called");
+            }
         }
 
         public static void Disconnect(IntPtr client)
@@ -410,7 +420,8 @@ namespace Pitaya
         {
             var route = Marshal.PtrToStringAnsi(routePtr);
             var buffer = (PitayaBuffer)Marshal.PtrToStructure(payloadBufferPtr, typeof(PitayaBuffer));
-            var bodyStr = Marshal.PtrToStringAnsi(buffer.Data, (int)buffer.Len);
+            var rawData = new byte[buffer.Len];
+            Marshal.Copy(buffer.Data, rawData, 0, (int)buffer.Len);
 
             WeakReference reference;
 
@@ -423,8 +434,7 @@ namespace Pitaya
             var listener = reference.Target as IPitayaListener;
             MainQueueDispatcher.Dispatch(() =>
             {
-                var serializedBody = Encoding.UTF8.GetBytes(bodyStr);
-                if (listener != null) listener.OnUserDefinedPush(route, serializedBody);
+                if (listener != null) listener.OnUserDefinedPush(route, rawData);
             });
         }
 
@@ -535,7 +545,8 @@ namespace Pitaya
         private static extern int NativeDestroy(IntPtr client);
 
         [DllImport(LibName, EntryPoint = "pc_client_connect")]
-        private static extern int NativeConnect(IntPtr client, string host, int port, string handsharkOpts);
+        private static extern int NativeConnect(IntPtr client, string host, int port, string handshakeOpts);
+
         [DllImport(LibName, EntryPoint = "pc_client_disconnect")]
         private static extern int NativeDisconnect(IntPtr client);
 
